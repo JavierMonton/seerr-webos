@@ -17,7 +17,7 @@ Lightweight native app for LG webOS TVs to browse and request Movies & TV Shows 
 
 ### Homebrew Channel (one click, once published)
 
-Seerr will appear in the Homebrew Channel store after the submission below is merged. Then: Homebrew Channel → search Seerr → Install.
+Hopefully the tool will be available in the Homebrew Channel soon. 
 
 ### Manual (.ipk)
 
@@ -41,17 +41,3 @@ ares-install --device tv /tmp/seerr-pkg/io.github.javiermonton.seerr_*_all.ipk
 
 `config.js` holds defaults; the key entered on the TV lives only on the TV (`localStorage`). Back it up before reinstalling (uninstall wipes it).
 
-## Publish to Homebrew (one-click install)
-
-1. Push this repo to GitHub (public).
-2. Cut a release: push a tag and CI (`.github/workflows/build.yml`) packages the IPK, generates the manifest and attaches both to the Release:
-   ```
-   git tag v0.6.4 && git push origin v0.6.4
-   ```
-   Manual alternative:
-   ```
-   python3 tools/mkmanifest.py seerr-webos/io.github.javiermonton.seerr_*_all.ipk \
-     --repo https://github.com/JavierMonton/seerr-webos --out io.github.javiermonton.seerr.manifest.json
-   ```
-   then attach both files to the release.
-3. Fork [webosbrew/apps-repo](https://github.com/webosbrew/apps-repo), copy `packages/io.github.javiermonton.seerr.yml`, open a PR. After merge the app shows up in Homebrew Channel.
