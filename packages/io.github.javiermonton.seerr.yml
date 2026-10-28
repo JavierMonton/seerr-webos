@@ -1,0 +1,9 @@
+title: Seerr
+iconUri: https://github.com/JavierMonton/seerr-webos/raw/main/seerr-webos/icon160.png
+manifestUrl: https://github.com/JavierMonton/seerr-webos/releases/latest/download/io.github.javiermonton.seerr.manifest.json
+category: multimedia
+pool: main
+description: |
+  Native LG webOS client for Seerr: browse Discover, Movies and TV Shows,
+  filter, search and request movies or individual seasons with the TV remote.
+  Needs a Seerr server (>= 3.5) and an API key, entered once in Settings on the TV.

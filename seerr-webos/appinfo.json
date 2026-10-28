@@ -1,0 +1,16 @@
+{
+  "id": "io.github.javiermonton.seerr",
+  "version": "0.6.4",
+  "vendor": "JavierMonton",
+  "type": "web",
+  "main": "index.html",
+  "title": "Seerr",
+  "icon": "icon.png",
+  "largeIcon": "largeIcon.png",
+  "bgColor": "#0e1014",
+  "iconColor": "#16181c",
+  "resolution": "1920x1080",
+  "disableBackHistoryAPI": true,
+  "handlesRelaunch": true,
+  "requiredACG": []
+}
