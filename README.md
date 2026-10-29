@@ -5,7 +5,8 @@ Lightweight native app for LG webOS TVs to browse and request Movies & TV Shows 
 - Discover, Movies, TV Shows, Requests, Search
 - Filters (sort, multiple genres, multiple platforms, year), infinite scroll
 - Request movies and individual seasons; requested state is shown in details and Requests
-- English UI; no `language` param is sent (Seerr returns empty results for `/discover/movies|tv` with `language=`)
+
+![img.png](img.png)
 
 ## Requirements
 
