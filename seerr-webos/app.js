@@ -2,8 +2,30 @@
 (function () {
 "use strict";
 
+// webOS lifecycle: v0.6.4 shipped with "handlesRelaunch": true but never
+// handled the webOSRelaunch event. Per LG docs, with handlesRelaunch=true
+// the platform keeps the app hidden in the background after a relaunch
+// until the app calls PalmSystem.activate(). Result: first launch after a
+// reboot worked, but after pressing HOME, tapping the icon again fired
+// webOSRelaunch and the app stayed hidden ("nothing happens").
+// Fix: appinfo.json now uses "handlesRelaunch": false (the OS brings the
+// app to the foreground automatically), AND we handle the relaunch event
+// explicitly as defense-in-depth (covers TVs that cached the old appinfo).
+function webOSActivate() {
+  try {
+    if (typeof PalmSystem !== "undefined" && PalmSystem && typeof PalmSystem.activate === "function") PalmSystem.activate();
+  } catch (e) {}
+  try {
+    if (typeof webOSSystem !== "undefined" && webOSSystem && typeof webOSSystem.activate === "function") webOSSystem.activate();
+  } catch (e) {}
+}
+try {
+  document.addEventListener("webOSRelaunch", function () { webOSActivate(); }, true);
+  document.addEventListener("webOSLaunch", function () { webOSActivate(); }, true);
+} catch (e) {}
+
 var LS_KEY = "seerrwebos.cfg";
-var APP_VERSION = "0.6.4";
+var APP_VERSION = "0.6.5";
 function loadCfg() {
   var cfg = { server: "", apiKey: "", language: "en-US" };
   try {
@@ -1214,6 +1236,20 @@ function render(view, keepFocus) {
 }
 function push(view) { stack.push(view); render(view, false); }
 function openDetails(item) { push(vDetails(item)); }
+// When the app comes back from the background (HOME then icon again),
+// make sure it is activated and keyboard focus is on a visible element.
+try {
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) return;
+    webOSActivate();
+    try {
+      if (!currentFocus || !document.contains(currentFocus)) {
+        var f = focusables();
+        if (f.length) setFocus(f[0]);
+      }
+    } catch (e) {}
+  }, true);
+} catch (e) {}
 push(needConfig() ? vSettings() : vHome());
 
 })();
